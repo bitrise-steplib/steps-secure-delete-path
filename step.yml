@@ -9,3 +9,8 @@ inputs:
   - title: |
       File or Folder path to delete.
     mapped_to: SECURE_DELETE_PATH
+  - title: |
+      Use sudo for delete? Options:
+        * true (default): use sudo
+        * false: don't use sudo
+    mapped_to: SECURE_DELETE_WITHSUDO
