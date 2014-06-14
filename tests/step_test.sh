@@ -81,7 +81,7 @@ function is_file_exist {
 
 function run_target_command {
   command_arg_path=$1
-  print_and_do_command eval "SECURE_DELETE_PATH=\"$command_arg_path\" ./step.sh"
+  print_and_do_command eval "SECURE_DELETE_PATH=\"$command_arg_path\" SECURE_DELETE_WITHSUDO=false ./step.sh"
 }
 
 echo "Starting tests..."
@@ -152,3 +152,9 @@ echo "--- Results ---"
 echo " * Errors: $test_results_error_count"
 echo " * Success: $test_results_success_count"
 echo "---------------"
+
+if [ $test_results_error_count -eq 0 ]; then
+  echo "-> SUCCESS"
+else
+  echo "-> FAILED"
+fi
