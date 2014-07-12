@@ -6,6 +6,7 @@ if [ ! -n "$SECURE_DELETE_PATH" ]; then
 fi
 
 # this expansion is required for paths with ~
+#  more information: http://stackoverflow.com/questions/3963716/how-to-manually-expand-a-special-variable-ex-tilde-in-bash
 eval expanded_target_path="$SECURE_DELETE_PATH"
 
 is_do_with_sudo=1 # use sudo? default is yes
