@@ -208,6 +208,30 @@ print_test_header "Special input paths tests (~ or $SOMEENV)"
   # check
   expect_error "File $testfile_path2 should NOT exist" \
     is_file_exist "$testfile_path2"
+
+
+  # abs path
+  # Create test folder and file
+  eval test_abs_fold="$HOME/stest"
+  eval test_abs_file="$test_abs_fold/testfile.txt"
+  print_and_do_command mkdir "$test_abs_fold"
+  print_and_do_command echo 'test file content' > "$test_abs_file"
+
+  # Both the folder and the file should exist
+  expect_success "Folder $test_abs_fold should exist" \
+    is_dir_exist "$test_abs_fold"
+  expect_success "File $test_abs_file should exist" \
+    is_file_exist "$test_abs_file"
+
+  # Remove the folder
+  expect_success "The target command should remove the whole directory, including the file" \
+    run_target_command "$test_abs_fold"
+
+  # Neither the file, nor the folder should exist
+  expect_error "Folder $test_abs_fold should NOT exist" \
+    is_dir_exist "$test_abs_fold"
+  expect_error "File $test_abs_file should NOT exist" \
+    is_file_exist "$test_abs_file"
 )
 test_result=$?
 inspect_test_result $test_result
