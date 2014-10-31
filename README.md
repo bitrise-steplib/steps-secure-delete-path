@@ -8,6 +8,8 @@ From the OS X rm man documentation (https://developer.apple.com/library/mac/docu
 Option -P: Overwrite regular files before deleting them.  Files are overwritten three times, first
 with the byte pattern 0xff, then 0x00, and then 0xff again, before they are deleted.
 
+This Step is part of the [Open StepLib](http://www.steplib.com/), you can find its StepLib page [here](http://www.steplib.com/step/osx-secure-delete-path)
+
 # Input Enviroment Variables
 
 - **SECURE_DELETE_PATH**
