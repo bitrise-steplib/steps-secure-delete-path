@@ -19,13 +19,13 @@ run_if: ""
 inputs:
   - path: ""
     opts:
-    title: File or Folder path to delete.
-    summary: ""
-    description: ""
-    is_expand: true
-    is_required: true
-    is_dont_change_value: false
-  - with_sudo: ""
+      title: File or Folder path to delete.
+      summary: ""
+      description: ""
+      is_expand: true
+      is_required: true
+      is_dont_change_value: false
+  - with_sudo: "true"
     opts:
       title: |-
         Use sudo for delete? Options:
@@ -33,6 +33,9 @@ inputs:
           * false: don't use sudo
       description: ""
       summary: ""
+      value_options:
+        - "true"
+        - "false"
       is_expand: false
       is_required: false
       is_dont_change_value: false
