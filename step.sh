@@ -1,16 +1,16 @@
 #!/bin/bash
 
-if [ ! -n "$SECURE_DELETE_PATH" ]; then
-  echo '[!] Input $SECURE_DELETE_PATH missing!'
+if [ ! -n "$path" ]; then
+  echo '[!] Input $path missing!'
   exit 1
 fi
 
 # this expansion is required for paths with ~
 #  more information: http://stackoverflow.com/questions/3963716/how-to-manually-expand-a-special-variable-ex-tilde-in-bash
-eval expanded_target_path="$SECURE_DELETE_PATH"
+eval expanded_target_path="$path"
 
 is_do_with_sudo=1 # use sudo? default is yes
-if [[ -n "$SECURE_DELETE_WITHSUDO" && "$SECURE_DELETE_WITHSUDO" == 'false' ]]; then
+if [[ -n "$with_sudo" && "$with_sudo" == 'false' ]]; then
   is_do_with_sudo=0
 fi
 

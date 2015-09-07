@@ -1,16 +1,39 @@
-name: Secure Delete a given path
+title: Secure Delete a given path
+summary: Secure Delete a given path
 description: |
   Calls 'rm -rfP the-path' to securely delete the given file or folder.
   From the OS X rm man documentation (https://developer.apple.com/library/mac/documentation/Darwin/Reference/Manpages/man1/rm.1.html):
   Option -P: Overwrite regular files before deleting them.  Files are overwritten three times, first
   with the byte pattern 0xff, then 0x00, and then 0xff again, before they are deleted.
-
+website: https://github.com/bitrise-io/steps-secure-delete-path
+source_code_url: https://github.com/bitrise-io/steps-secure-delete-path
+support_url: https://github.com/bitrise-io/steps-secure-delete-path/issues
+host_os_tags: []
+project_type_tags: []
+type_tags: []
+is_requires_admin_user: false
+is_always_run: false
+is_skippable: false
+dependencies: []
+run_if: ""
 inputs:
-  - title: |
-      File or Folder path to delete.
-    mapped_to: SECURE_DELETE_PATH
-  - title: |
-      Use sudo for delete? Options:
-        * true (default): use sudo
-        * false: don't use sudo
-    mapped_to: SECURE_DELETE_WITHSUDO
+  - path: ""
+    opts:
+    title: File or Folder path to delete.
+    summary: ""
+    description: ""
+    is_expand: true
+    is_required: true
+    is_dont_change_value: false
+  - with_sudo: ""
+    opts:
+      title: |-
+        Use sudo for delete? Options:
+          * true (default): use sudo
+          * false: don't use sudo
+      description: ""
+      summary: ""
+      is_expand: false
+      is_required: false
+      is_dont_change_value: false
+outputs: []
