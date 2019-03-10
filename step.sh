@@ -22,9 +22,9 @@ function print_and_do_command {
 echo "Removing $expanded_target_path ..."
 if [ $is_do_with_sudo -eq 1 ]; then
   echo " (i) Using sudo"
-  print_and_do_command sudo rm -rfP "$expanded_target_path"
+  print_and_do_command sudo rm -rf "$expanded_target_path"
 else
   echo " (i) NOT using sudo"
-  print_and_do_command rm -rfP "$expanded_target_path"
+  print_and_do_command rm -rf "$expanded_target_path"
 fi
 exit $?
