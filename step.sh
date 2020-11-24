@@ -1,13 +1,13 @@
 #!/bin/bash
 
-if [ ! -n "$path_v" ]; then
+if [ ! -n "$path" ]; then
   echo '[!] Input $path missing!'
   exit 1
 fi
 
 # this expansion is required for paths with ~
 #  more information: http://stackoverflow.com/questions/3963716/how-to-manually-expand-a-special-variable-ex-tilde-in-bash
-eval expanded_target_path="$path_v"
+eval expanded_target_path="$path"
 
 is_do_with_sudo=1 # use sudo? default is yes
 if [[ -n "$with_sudo" && "$with_sudo" == 'false' ]]; then
@@ -35,7 +35,7 @@ case "${os_type}" in
     *)          os_specific_switches=""
 esac
 
-echo "OS type: $determine_os_type"
+echo "OS type: $os_type"
 echo "Removing $expanded_target_path ..."
 if [ $is_do_with_sudo -eq 1 ]; then
   echo " (i) Using sudo"
