@@ -14,10 +14,26 @@ if [[ -n "$with_sudo" && "$with_sudo" == 'false' ]]; then
   is_do_with_sudo=0
 fi
 
+function determine_os_type {
+  unameOut="$(uname -s)"
+  case "${unameOut}" in
+      Linux*)     os_type=Linux;;
+      Darwin*)    os_type=Mac;;
+      *)          os_type="UNKNOWN:${unameOut}"
+  esac
+}
+
 function print_and_do_command {
   echo "$ $@"
   $@
 }
+
+determine_os_type
+case "${os_type}" in
+    Linux*)     os_type=Linux;;
+    Mac*)       os_type=Mac;;
+    *)          os_type="UNKNOWN:${unameOut}"
+esac
 
 echo "Removing $expanded_target_path ..."
 if [ $is_do_with_sudo -eq 1 ]; then
