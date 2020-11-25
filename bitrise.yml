@@ -7,6 +7,10 @@ workflows:
     - script:
         inputs:
         - content: |-
+            #!/bin/bash
+            set -e
+            set -v
+
             ./step_test.sh
   step_test:
     steps:
@@ -16,6 +20,7 @@ workflows:
             #!/bin/bash
             set -e
             set -v
+
             mkdir -p ./_tmp/subfold
             echo 'hi' > ./_tmp/hi.txt
             echo 'test' > ./_tmp/subfold/test.txt
@@ -27,6 +32,7 @@ workflows:
         inputs:
         - content: |-
             #!/bin/bash
+            
             if [[ -f "./_tmp/hi.txt" || -f "./_tmp/subfold/test.txt" ]] ; then
               echo "File found - ERROR"
               exit 1
