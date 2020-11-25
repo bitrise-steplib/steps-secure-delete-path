@@ -2,7 +2,13 @@ format_version: 1.0.0
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
 workflows:
-  test:
+  unit_test:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            ./step_test.sh
+  step_test:
     steps:
     - script:
         inputs:
@@ -29,3 +35,7 @@ workflows:
               echo "Dir found - ERROR"
               exit 1
             fi
+  test:
+    before_run:
+      - unit_test
+      - step_test
