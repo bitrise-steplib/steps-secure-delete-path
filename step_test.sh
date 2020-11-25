@@ -167,9 +167,6 @@ print_test_header "Create a file and remove it with -P flag. It should be pass o
 test_result=$?
 if [ "$os_type" = "Mac" ]; then
   assert_test_result $test_result 0
-
-  # cleanup
-  rm -rf "$testfile_path"
 else
   assert_test_result $test_result 1
 
