@@ -16,14 +16,18 @@ function print_and_do_command {
 }
 
 function inspect_test_result {
-  if [ $1 -eq 0 ]; then
+  assert_test_result $1 0
+}
+
+function assert_test_result {
+    if [ $1 -eq $2 ]; then
     echo "---> [TEST] result: OK"
     test_results_success_count=$[test_results_success_count + 1]
   else
     echo "---> [TEST] result: ERROR"
     test_results_error_count=$[test_results_error_count + 1]
   fi
-}
+} 
 
 function print_test_header {
   echo
@@ -74,6 +78,15 @@ function expect_error {
   fi
 }
 
+function determine_os_type {
+  unameOut="$(uname -s)"
+  case "${unameOut}" in
+      Linux*)     os_type=Linux;;
+      Darwin*)    os_type=Mac;;
+      *)          os_type="UNKNOWN:${unameOut}"
+  esac
+}
+
 function is_dir_exist {
   if [ -d "$1" ]; then
     return 0
@@ -106,6 +119,7 @@ testfile_path="$testfold_path/testfile.txt"
 test_results_success_count=0
 test_results_error_count=0
 
+determine_os_type
 
 # [TEST] If target file/folder doesn't exist expect error
 #  It should return an error if the target doesn't exist
@@ -122,8 +136,11 @@ print_test_header "If target file/folder doesn't exist expect error"
     run_target_command "$test_non_existing_path"
 )
 test_result=$?
-inspect_test_result $test_result
-
+if [ "$os_type" = "Mac" ]; then
+  assert_test_result $test_result 0
+else
+  assert_test_result $test_result 1
+fi
 
 # [TEST] Create test only file, then securely remove the file
 #  It should remove the file
