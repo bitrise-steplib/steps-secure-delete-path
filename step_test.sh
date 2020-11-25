@@ -142,6 +142,42 @@ else
   assert_test_result $test_result 1
 fi
 
+# [TEST] Runs the rm command with -P flag. It should fail on Linux because the -P flag is not exists
+#  It should remove the file on MAC
+print_test_header "Create a file and remove it with -P flag. It should be pass on Mac but on Linux fails"
+(
+  # Create test folder and file
+  print_and_do_command mkdir "$testfold_path"
+  print_and_do_command echo 'test file content' > "$testfile_path"
+
+    # Both the folder and the file should exist
+  expect_success "Folder $testfold_path should exist" \
+    is_dir_exist "$testfold_path"
+  expect_success "File $testfile_path should exist" \
+    is_file_exist "$testfile_path"
+
+  # Test the -P flag
+  print_and_do_command rm -rfP "$testfile_path"
+
+  expect_success "Folder $testfold_path should still exist" \
+    is_dir_exist "$testfold_path"
+  expect_error "File $testfile_path should NOT exist on MAC but throws exception on Linux" \
+    is_file_exist "$testfile_path"
+)
+test_result=$?
+if [ "$os_type" = "Mac" ]; then
+  assert_test_result $test_result 0
+
+  # cleanup
+  rm -rf "$testfile_path"
+else
+  assert_test_result $test_result 1
+
+  # cleanup
+  rm -rf "$testfile_path"
+fi
+
+
 # [TEST] Create test only file, then securely remove the file
 #  It should remove the file
 print_test_header "Create test only file, then securely remove the file"
