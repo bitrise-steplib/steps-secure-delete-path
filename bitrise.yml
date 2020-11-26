@@ -2,7 +2,7 @@ format_version: 1.0.0
 default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
 
 workflows:
-  test:
+  unit_test:
     steps:
     - script:
         inputs:
@@ -10,6 +10,17 @@ workflows:
             #!/bin/bash
             set -e
             set -v
+
+            ./step_test.sh
+  step_test:
+    steps:
+    - script:
+        inputs:
+        - content: |-
+            #!/bin/bash
+            set -e
+            set -v
+
             mkdir -p ./_tmp/subfold
             echo 'hi' > ./_tmp/hi.txt
             echo 'test' > ./_tmp/subfold/test.txt
@@ -21,6 +32,7 @@ workflows:
         inputs:
         - content: |-
             #!/bin/bash
+            
             if [[ -f "./_tmp/hi.txt" || -f "./_tmp/subfold/test.txt" ]] ; then
               echo "File found - ERROR"
               exit 1
@@ -29,3 +41,7 @@ workflows:
               echo "Dir found - ERROR"
               exit 1
             fi
+  test:
+    before_run:
+      - unit_test
+      - step_test
