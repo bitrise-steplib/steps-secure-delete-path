@@ -10,7 +10,8 @@ source_code_url: https://github.com/bitrise-io/steps-secure-delete-path
 support_url: https://github.com/bitrise-io/steps-secure-delete-path/issues
 host_os_tags: []
 project_type_tags: []
-type_tags: []
+type_tags:
+  - utility
 is_requires_admin_user: true
 is_always_run: false
 is_skippable: false
@@ -20,19 +21,19 @@ inputs:
   - path: ""
     opts:
       title: File or Folder path to delete.
-      summary: ""
+      summary: "File or Folder path to delete."
       description: ""
       is_expand: true
       is_required: true
       is_dont_change_value: false
   - with_sudo: "true"
     opts:
-      title: |-
+      title: Use sudo for delete.
+      description: |-
         Use sudo for delete? Options:
           * true (default): use sudo
           * false: don't use sudo
-      description: ""
-      summary: ""
+      summary: "When this flag is enabled, the step will use sudo for the deletion."
       value_options:
         - "true"
         - "false"
